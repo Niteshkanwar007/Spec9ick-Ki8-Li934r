@@ -1,0 +1,66 @@
+name: Spec9ick-Ki8-Li934r
+version: 1.0.0
+author: 9icksA
+description: "Turn rough ideas into structured Linear issue workflows with versioned specs, auto-clipboard commands, child tasks, and clean branch creation."
+homepage: "https://github.com/9icksA/Spec9ick-Ki8-Li934r"
+repository: "https://github.com/9icksA/Spec9ick-Ki8-Li934r"
+license: MIT
+
+commands:
+  - name: specify
+    title: "1. Specify"
+    description: "Transforms a rough idea or Linear issue into a structured product specification."
+    file: commands/specify.md
+    nextCommand: clarify
+    readsFrom: "Linear Issue Description / Prompt"
+    writesTo: "Linear Issue Comment (v{N})"
+
+  - name: clarify
+    title: "2. Clarify"
+    description: "Analyzes specification versions to uncover ambiguities, edge cases, and propose concrete resolutions."
+    file: commands/clarify.md
+    nextCommand: analyze
+    readsFrom: "Linear Issue + Specification Comment"
+    writesTo: "Linear Issue Comment (v{N})"
+
+  - name: analyze
+    title: "3. Analyze"
+    description: "Evaluates technical architecture, data models, API contracts, security, and performance tradeoffs."
+    file: commands/analyze.md
+    nextCommand: plan
+    readsFrom: "Linear Issue + Clarification Comment"
+    writesTo: "Linear Issue Comment (v{N})"
+
+  - name: plan
+    title: "4. Plan"
+    description: "Builds a phased rollout plan, milestone sequence, migration strategy, and rollback safeguards."
+    file: commands/plan.md
+    nextCommand: checklist
+    readsFrom: "Linear Issue + Analysis Comment"
+    writesTo: "Linear Issue Comment (v{N})"
+
+  - name: checklist
+    title: "5. Checklist"
+    description: "Generates an exhaustive acceptance criteria matrix, test verification checklist, and QA gates."
+    file: commands/checklist.md
+    nextCommand: tasks
+    readsFrom: "Linear Issue + Plan Comment"
+    writesTo: "Linear Issue Comment (v{N})"
+
+  - name: tasks
+    title: "6. Tasks"
+    description: "Decomposes plan into atomic child tasks, creates child issues in Linear with branch names, and links them."
+    file: commands/tasks.md
+    nextCommand: implement
+    readsFrom: "Linear Issue + Checklist Comment"
+    writesTo: "Linear Child Issues + Summary Comment (v{N})"
+    createsChildIssues: true
+
+  - name: implement
+    title: "7. Implement"
+    description: "Creates git branch only at this stage using Linear's child task branchName, and guides development."
+    file: commands/implement.md
+    nextCommand: null
+    readsFrom: "Linear Child Task Issue"
+    writesTo: "Git Branch & Implementation Guidance"
+    createsBranch: true

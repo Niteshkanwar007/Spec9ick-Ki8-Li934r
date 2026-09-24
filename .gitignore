@@ -1,0 +1,19 @@
+# Dependencies and build outputs
+node_modules/
+.next/
+coverage/
+.DS_Store
+*.log
+
+# Environment and Secret Configurations
+.env
+.env.*
+!.env.example
+
+# Local Linear Config (User Secrets)
+linear-config.yml
+linear-config.local.yml
+
+# IDE and OS files
+.vscode/
+.idea/

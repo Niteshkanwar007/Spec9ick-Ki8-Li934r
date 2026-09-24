@@ -1,0 +1,50 @@
+name: Spec9ick-Ki8-Li934r CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  validate:
+    name: Validate Spec9ick-Ki8-Li934r Commands & Templates
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint codebase
+        run: npm run lint
+
+      - name: Validate Markdown Commands Structure
+        run: |
+          for cmd in specify clarify analyze plan checklist tasks implement; do
+            if [ ! -f "commands/${cmd}.md" ]; then
+              echo "Error: Missing command file commands/${cmd}.md"
+              exit 1
+            fi
+            echo "Verified commands/${cmd}.md exists"
+          done
+
+      - name: Validate Documentation and Manifest Files
+        run: |
+          test -f extension.yml || (echo "Missing extension.yml" && exit 1)
+          test -f linear-config.template.yml || (echo "Missing linear-config.template.yml" && exit 1)
+          test -f docs/architecture.md || (echo "Missing docs/architecture.md" && exit 1)
+          test -f docs/example-workflow.md || (echo "Missing docs/example-workflow.md" && exit 1)
+          test -f docs/usage.md || (echo "Missing docs/usage.md" && exit 1)
+          echo "All manifest, command, and documentation files verified successfully"
+
+      - name: Build Next.js Application
+        run: npm run build

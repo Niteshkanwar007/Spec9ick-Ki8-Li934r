@@ -1,0 +1,6 @@
+{
+  "name": "Spec9ick-Ki8-Li934r: Linear Spec Kit Workflow Engine",
+  "description": "Transform rough ideas into structured Linear issue workflows with versioned specs, auto-clipboard commands, child tasks, and clean git branch creation.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

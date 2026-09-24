@@ -1,0 +1,37 @@
+# Spec9ick-Ki8-Li934r Configuration Template
+# Author: 9icksA
+# Repository: Spec9ick-Ki8-Li934r
+# Documentation: docs/usage.md
+
+# Linear Authentication
+linear:
+  # Personal API Key generated in Linear: Settings > Account > Security > Personal API Keys
+  apiKey: "${LINEAR_API_KEY}"
+  # Default team identifier (e.g., 'ENG', 'PROD', 'CORE')
+  defaultTeamKey: "ENG"
+
+# Workflow Versioning Discipline
+workflow:
+  # Header tag used to group and identify versioned stages
+  commentTagPrefix: "[Spec9ick-Ki8-Li934r]"
+  # Preserve older versions in comment history rather than overwriting
+  preservePreviousVersions: true
+  # Initial version tag when step is first executed
+  initialVersion: 1
+
+# User Handoff & Clipboard Experience
+clipboard:
+  # Automatically copy the next stage command into system clipboard
+  autoCopyNextCommand: true
+  # Command prefix format: "spec-linear" (CLI) or "/" (slash command)
+  commandFormat: "spec-linear"
+
+# Branch Creation Discipline
+git:
+  # Branch strategy: ONLY create git branch at the "implement" stage
+  # Uses the branchName provided by the Linear child task issue
+  branchStrategy: "create_on_implement_only"
+  # Default branch naming template in Linear: {username}/{issueKey}-{slug}
+  branchPrefix: "9icksA"
+  # Regular expression to extract issue identifier from active git branch name
+  branchIssueRegex: "(?:(?:feature|feat|bugfix|fix|chore|refactor|[a-zA-Z0-9_-]+)/)?([A-Za-z0-9]+-\\d+)"
